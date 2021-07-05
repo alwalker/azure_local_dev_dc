@@ -1,0 +1,14 @@
+FROM ubuntu:18.04
+
+WORKDIR /src
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
+    apt-get install -yq libunwind8 libicu60 apt-transport-https openssl1.0 wget unzip && \
+    mkdir /app && \
+    wget -q https://go.microsoft.com/fwlink/?linkid=2134311 -O sql.zip && \
+    unzip sql.zip -d /app && \
+    chmod u+x /app/sqlpackage
+
+ENV PATH="/app/:${PATH}"
+ENTRYPOINT ["sqlpackage"]

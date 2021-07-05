@@ -1,0 +1,17 @@
+#This variable will be used to name everything created in azure. Generally in the format of [company]-[env]-[resource type]
+env = "alwlocal"
+
+#If enabled Terraform will create an Azure SQL database in your resource group.
+#If not a docker compose override file will be created that adds a "database" service that is a custom container running MSSQL with FTS enabled.
+azure_db = false
+
+#Storage Accounts and other Azure resources need to be globally unique, this string is added on to these resources to help with that.
+#For example the Storage Account name looks like this: lower("st${var.base_name}${var.env}${var.unique_token}")
+#Typically a date of some kind is used, but any random string will do.
+#Keep in mind it should be short as Storage Accounts in particular can only be 24 characters long.
+unique_token = "08052020"
+
+#Database credentials used when creating the Azure SQL Database.
+#If using the local container option for your database the password variable will be used for the sa password.
+database_login    = "sa"
+database_password = "SECRET"

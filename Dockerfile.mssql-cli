@@ -1,0 +1,13 @@
+FROM ubuntu:18.04
+
+WORKDIR /src
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
+    apt-get install -yq wget gnupg libicu60 curl software-properties-common && \
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod && \
+    apt-get -y update && apt-get -y install mssql-cli && \
+    apt-get -y install -f
+
+ENTRYPOINT ["mssql-cli"]
